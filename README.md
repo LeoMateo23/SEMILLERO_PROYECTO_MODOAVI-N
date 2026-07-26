@@ -240,8 +240,6 @@ Proyecto desarrollado por el grupo **Modo Avión** como parte del Proyecto Final
 
 **Grupo:** Modo Avión
 
-**Universidad:** Universidad de Guayaquil
-
 **Periodo académico:** 2026 - 2027
 
 Universidad de Guayaquil.
