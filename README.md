@@ -11,6 +11,99 @@ Este proyecto implementa un asistente inteligente basado en **Retrieval-Augmente
 Además, incorpora un agente multimodal para el análisis de imágenes de productos, un agente de acción para registrar oportunidades comerciales y observabilidad mediante Phoenix para monitorear la ejecución del sistema.
 
 ---
+# Requisitos
+
+Antes de ejecutar el proyecto, asegúrese de contar con lo siguiente:
+
+- Python 3.11 o superior.
+- JupyterLab o Jupyter Notebook.
+- Una API Key de Google Gemini.
+- Conexión a Internet para utilizar el modelo Gemini.
+
+---
+
+# Instalación
+
+Clone el repositorio:
+
+```bash
+git clone <[URL_DEL_REPOSITORIO](https://github.com/LeoMateo23/SEMILLERO_PROYECTO_MODOAVI-N)>
+```
+
+Ingrese a la carpeta del proyecto:
+
+```bash
+cd proyecto_modo_avión
+```
+
+Instale las dependencias:
+
+```bash
+pip install -q langchain langchain-google-genai langchain-community langchain-chroma chromadb pillow pandas ipywidgets python-dotenv
+pip install -q arize-phoenix openinference-instrumentation-langchain
+```
+
+---
+
+# Configuración
+
+Crear un archivo `.env` en la carpeta principal del proyecto con la siguiente variable:
+
+```text
+GOOGLE_API_KEY=SU_API_KEY
+```
+
+---
+
+# Ejecución
+
+1. Abrir JupyterLab.
+2. Abrir el notebook `Proyecto_Final.ipynb`.
+3. Ejecutar las celdas en el orden en que aparecen.
+4. Esperar a que se creen las bases vectoriales.
+5. Ejecutar la celda de Phoenix.
+6. Ejecutar la interfaz del asistente.
+7. Realizar consultas al sistema.
+
+---
+
+# Visualización de Phoenix
+
+Al ejecutar la celda correspondiente, Phoenix iniciará automáticamente.
+
+La interfaz podrá visualizarse desde la dirección mostrada en Jupyter, por ejemplo:
+
+```
+http://127.0.0.1:6006
+```
+
+En Phoenix podrán observarse:
+
+- trazas de ejecución;
+- llamadas al modelo Gemini;
+- herramientas utilizadas;
+- consumo de tokens;
+- tiempos de respuesta;
+- flujo completo del orquestador.
+
+---
+
+# Archivos necesarios
+
+El proyecto requiere los siguientes archivos:
+
+```
+01_Catalogo_Productos_Precios.txt
+02_Politicas_Comerciales_Descuentos_Credito.txt
+03_Proceso_Ventas_CRM.txt
+patito_pro.png
+```
+
+Además, durante la ejecución se genera:
+
+```
+registro_oportunidades.txt
+```
 
 # Características principales
 
