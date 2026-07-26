@@ -1,4 +1,8 @@
-# Asistente Inteligente para PATITO S.A.
+# Proyecto final Semillero
+## Semillero de Inteligencia Artificial — Patito S.A.
+Mesa de ayuda IA con agentes especializados para el área de Ventas
+*Departamento de Ventas — Patito S.A.*
+
 
 ## Descripción
 
