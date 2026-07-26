@@ -230,6 +230,13 @@ El proyecto utiliza **Phoenix** para registrar automáticamente:
 - Registra una oportunidad para Comercial ABC con 10 unidades del Patito Pro 2026.
 
 ---
+Proyecto desarrollado por el grupo **Modo Avión** como parte del Proyecto Final del Semillero de Inteligencia Artificial.
+
+**Grupo:** Modo Avión
+
+**Universidad:** Universidad de Guayaquil
+
+**Periodo académico:** 2026 - 2027
 
 # Autores
 - Ashley Huanca 
