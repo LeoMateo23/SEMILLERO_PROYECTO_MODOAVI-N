@@ -230,6 +230,12 @@ El proyecto utiliza **Phoenix** para registrar automáticamente:
 - Registra una oportunidad para Comercial ABC con 10 unidades del Patito Pro 2026.
 
 ---
+
+# Autores
+- Ashley Huanca 
+- María Alvarado 
+- Leonardo Yugsan 
+
 Proyecto desarrollado por el grupo **Modo Avión** como parte del Proyecto Final del Semillero de Inteligencia Artificial.
 
 **Grupo:** Modo Avión
@@ -237,13 +243,6 @@ Proyecto desarrollado por el grupo **Modo Avión** como parte del Proyecto Final
 **Universidad:** Universidad de Guayaquil
 
 **Periodo académico:** 2026 - 2027
-
-# Autores
-- Ashley Huanca 
-- María Alvarado 
-- Leonardo Yugsan 
-
-Proyecto desarrollado como parte del Proyecto Final de la asignatura de Inteligencia Artificial / Sistemas Inteligentes.
 
 Universidad de Guayaquil.
 
