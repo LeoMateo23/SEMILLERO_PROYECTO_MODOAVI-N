@@ -1,51 +1,243 @@
-# Proyecto Final - Semillero Modo Avion
+# Asistente Inteligente para PATITO S.A.
 
-Este repositorio contiene la documentacion, datos de entrada y el codigo fuente para el desarrollo del proyecto final de analisis de datos, integracion de informacion y automatizacion de procesos comerciales.
+## Descripción
+
+Este proyecto implementa un asistente inteligente basado en **Retrieval-Augmented Generation (RAG)** utilizando **LangChain** y **Google Gemini**. El sistema responde consultas relacionadas con el catálogo de productos, las políticas comerciales y el proceso de ventas de PATITO S.A., mediante agentes especializados coordinados por un agente orquestador.
+
+Además, incorpora un agente multimodal para el análisis de imágenes de productos, un agente de acción para registrar oportunidades comerciales y observabilidad mediante Phoenix para monitorear la ejecución del sistema.
+
+---
+
+# Características principales
+
+- Arquitectura RAG.
+- Agentes especializados.
+- Agente orquestador.
+- Base vectorial con Chroma.
+- Embeddings de Google Gemini.
+- Agente multimodal para análisis de imágenes.
+- Agente de acción para registrar oportunidades.
+- Observabilidad mediante Phoenix.
+- Interfaz interactiva desarrollada con ipywidgets.
+
+---
+
+# Arquitectura
+
+El sistema está compuesto por los siguientes componentes:
+
+- Interfaz del asistente.
+- Agente Orquestador.
+- Agente Catálogo y Precios.
+- Agente de Políticas Comerciales.
+- Agente de Proceso de Ventas y CRM.
+- Agente Multimodal.
+- Agente de Acción.
+- Bases vectoriales Chroma.
+- Google Gemini.
+- Phoenix.
+
+---
+
+# Tecnologías utilizadas
+
+- Python 3.11
+- JupyterLab
+- Google Gemini
+- LangChain
+- LangGraph
+- ChromaDB
+- Phoenix
+- ipywidgets
+- Pillow
+- Pandas
+
+---
+
+# Dependencias
+
+Instalar las dependencias con:
+
+```bash
+pip install langchain
+pip install langchain-google-genai
+pip install langchain-community
+pip install langchain-chroma
+pip install chromadb
+pip install pillow
+pip install pandas
+pip install ipywidgets
+pip install python-dotenv
+pip install arize-phoenix
+pip install openinference-instrumentation-langchain
+```
+
+O utilizando:
+
+```bash
+pip install -q langchain langchain-google-genai langchain-community langchain-chroma chromadb pillow pandas ipywidgets python-dotenv
+pip install -q arize-phoenix openinference-instrumentation-langchain
+```
+
+---
+
+# Estructura del proyecto
+
+```
+Proyecto/
+│
+├── documentos/
+│   ├── 01_Catalogo_Productos_Precios.txt
+│   ├── 02_Politicas_Comerciales_Descuentos_Credito.txt
+│   └── 03_Proceso_Ventas_CRM.txt
+│
+├── registro_oportunidades.txt
+├── patito_pro.png
+├── Proyecto_Final.ipynb
+└── README.md
+```
+
+---
+
+# Base de conocimiento
+
+La información utilizada por el asistente proviene de tres documentos independientes:
+
+- Catálogo de productos y precios.
+- Políticas comerciales.
+- Proceso de ventas y CRM.
+
+Cada documento es dividido en fragmentos (chunks), convertido en embeddings mediante Google Gemini y almacenado en una colección independiente de Chroma.
+
+---
+
+# Agentes implementados
+
+## Agente Catálogo y Precios
+
+Responde consultas relacionadas con:
+
+- productos;
+- precios;
+- disponibilidad;
+- características técnicas.
+
+---
+
+## Agente de Políticas Comerciales
+
+Responde consultas relacionadas con:
+
+- descuentos;
+- crédito;
+- garantías;
+- devoluciones;
+- anticipos.
+
+---
+
+## Agente de Proceso de Ventas y CRM
+
+Responde consultas sobre:
+
+- etapas del embudo;
+- registro de oportunidades;
+- cierre de ventas;
+- posventa.
+
+---
+
+## Agente Multimodal
+
+Analiza imágenes de productos mediante Google Gemini Vision para extraer información visible como:
+
+- nombre del producto;
+- precio;
+- disponibilidad;
+- garantía;
+- características.
+
+---
+
+## Agente de Acción
+
+Permite registrar oportunidades comerciales validando previamente que toda la información requerida esté completa.
+
+Los registros se almacenan en:
+
+```
+registro_oportunidades.txt
+```
+
+---
+
+## Agente Orquestador
+
+Coordina el funcionamiento del sistema.
+
+Analiza la intención del usuario y decide qué agente especializado debe intervenir para responder la consulta o ejecutar una acción.
+
+---
+
+# Observabilidad
+
+El proyecto utiliza **Phoenix** para registrar automáticamente:
+
+- llamadas al modelo Gemini;
+- consultas a los retrievers;
+- herramientas ejecutadas;
+- tiempos de respuesta;
+- consumo de tokens;
+- trazas completas de ejecución.
+
+---
+
+# Flujo de funcionamiento
+
+1. El usuario realiza una consulta.
+2. El orquestador identifica la intención.
+3. Se selecciona el agente correspondiente.
+4. El retriever recupera el contexto desde Chroma.
+5. Google Gemini genera la respuesta.
+6. Si corresponde, el agente de acción registra la oportunidad.
+7. Phoenix registra toda la ejecución.
+
+---
+
+# Ejemplos de consultas
+
+### Catálogo
+
+- ¿Cuál es el precio del Patito Pro 2026?
+- ¿Qué accesorios están disponibles?
+
+### Políticas
+
+- ¿Qué descuento puede autorizar un vendedor?
+- ¿Cuál es la política de devoluciones?
+
+### CRM
+
+- ¿Qué requisitos existen para marcar una oportunidad como ganada?
+- ¿Cuáles son las etapas del embudo de ventas?
+
+### Multimodal
+
+- Analiza la imagen `patito_pro.png`.
+
+### Acción
+
+- Registra una oportunidad para Comercial ABC con 10 unidades del Patito Pro 2026.
+
+---
+
+# Autores
+- Ashley Huanca 
+- María Alvarado 
+- Leonardo Yugsan 
 
 
-Objetivo del Proyecto
+Proyecto desarrollado como parte del Proyecto Final de la asignatura de Inteligencia Artificial / Sistemas Inteligentes.
 
-El objetivo principal de este trabajo es procesar, estructurar y analizar la informacion de ventas, catalogos de productos y registros de clientes para evaluar el rendimiento de las operaciones comerciales y aplicar reglas de negocio predefinidas.
+Universidad de Guayaquil.
 
-
-Descripcion detallada del proceso realizado
-
-Paso 1: Recopilacion e ingesta de datos
-Se integraron los archivos de texto que contienen la informacion base del sistema. Esto incluye la lectura de catalogos de productos con sus respectivos precios, las politicas comerciales vigentes, los flujos del proceso CRM y los registros de pedidos y oportunidades.
-
-Paso 2: Limpieza y estandarizacion de la informacion
-Se realizo una revision de los datos de entrada para detectar inconsecuencias, corregir formatos de texto y valores numéricos, eliminar espacios innecesarios y estructurar los registros de manera que puedan ser procesados analiticamente sin errores.
-
-Paso 3: Aplicacion de reglas de negocio y politicas comerciales
-Utilizando las definiciones establecidas en las politicas de descuentos y reglas comerciales, se cruzaron los datos de los pedidos con el catalogo para validar precios finales, calcular montos totales y aplicar las condiciones correspondientes a cada oportunidad.
-
-Paso 4: Procesamiento y analisis en Jupyter Notebook
-En el archivo principal Proyecto_final.ipynb se ejecutaron todas las transformaciones, cruces de tablas y calculos estadisticos. Se utilizaron librerias de procesamiento de datos en Python para automatizar el flujo de trabajo completo.
-
-Paso 5: Generacion de resultados y recursos visuales
-Como etapa final, se consolidaron las metricas clave del proceso y se generaron elementos graficos representativos para facilitar la interpretacion de los resultados obtenidos durante el analisis.
-
-
-Estructura del Repositorio
-
-- Proyecto_final.ipynb: Cuaderno Jupyter interactivo con el codigo Python, explicaciones paso a paso y ejecucion de los analisis.
-- 01_Catalogo_Productos_Precios.txt: Archivo de datos con el listado de productos, identificadores y precios unitarios.
-- 02_Politicas_Comerciales_Descuentos.txt: Documento con las reglas de negocio, escalas de descuentos y condiciones de venta.
-- 03_Proceso_Ventas_CRM.txt: Especificacion del flujo de trabajo y estados dentro del pipeline de ventas.
-- pedidos_patito.txt: Registro detallado de los pedidos ingresados para pruebas de procesamiento.
-- registro_oportunidades.txt: Base de datos con el historial de oportunidades gestionadas.
-- patito_pro.png: Diagrama visual y recurso grafico del modelo de datos o proceso.
-
-
-Requisitos para la ejecucion
-
-Para replicar y ejecutar el analisis en un entorno local se requiere:
-- Python 3.8 o superior
-- Entorno de Jupyter Notebook o VS Code
-- Librerias de Python: pandas, matplotlib, numpy
-
-
-Autores
-Ashley Huanca 
-María Alvarado 
-Leonardo Yugsan 
