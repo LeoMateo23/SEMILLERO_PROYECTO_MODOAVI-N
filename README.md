@@ -236,7 +236,6 @@ El proyecto utiliza **Phoenix** para registrar automáticamente:
 - María Alvarado 
 - Leonardo Yugsan 
 
-
 Proyecto desarrollado como parte del Proyecto Final de la asignatura de Inteligencia Artificial / Sistemas Inteligentes.
 
 Universidad de Guayaquil.
