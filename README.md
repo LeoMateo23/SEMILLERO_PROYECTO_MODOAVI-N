@@ -1,138 +1,83 @@
-# Proyecto final Semillero
-## Semillero de Inteligencia Artificial — Patito S.A.
-Mesa de ayuda IA con agentes especializados para el área de Ventas
-*Departamento de Ventas — Patito S.A.*
-
-
-## Descripción
-
-Este proyecto implementa un asistente inteligente basado en **Retrieval-Augmented Generation (RAG)** utilizando **LangChain** y **Google Gemini**. El sistema responde consultas relacionadas con el catálogo de productos, las políticas comerciales y el proceso de ventas de PATITO S.A., mediante agentes especializados coordinados por un agente orquestador.
-
-Además, incorpora un agente multimodal para el análisis de imágenes de productos, un agente de acción para registrar oportunidades comerciales y observabilidad mediante Phoenix para monitorear la ejecución del sistema.
-
----
-# Requisitos
-
-Antes de ejecutar el proyecto, asegúrese de contar con lo siguiente:
-
-- Python 3.11 o superior.
-- JupyterLab o Jupyter Notebook.
-- Una API Key de Google Gemini.
-- Conexión a Internet para utilizar el modelo Gemini.
+# Asistente Inteligente para PATITO S.A.
+## Proyecto Final – Grupo Modo Avión
 
 ---
 
-# Instalación
+# Descripción
 
-Clone el repositorio:
+El presente proyecto implementa un asistente inteligente basado en la arquitectura **Retrieval-Augmented Generation (RAG)** utilizando **LangChain**, **Google Gemini** y **Chroma**.
 
-```bash
-git clone <[URL_DEL_REPOSITORIO](https://github.com/LeoMateo23/SEMILLERO_PROYECTO_MODOAVI-N)>
-```
+El sistema permite responder consultas relacionadas con el catálogo de productos, políticas comerciales y proceso de ventas de PATITO S.A., además de analizar imágenes de productos y registrar oportunidades comerciales mediante un agente de acción.
 
-Ingrese a la carpeta del proyecto:
-
-```bash
-cd proyecto_modo_avión
-```
-
-Instale las dependencias:
-
-```bash
-pip install -q langchain langchain-google-genai langchain-community langchain-chroma chromadb pillow pandas ipywidgets python-dotenv
-pip install -q arize-phoenix openinference-instrumentation-langchain
-```
+El proyecto incorpora observabilidad utilizando **Arize Phoenix**, lo que permite visualizar el flujo completo de ejecución del sistema.
 
 ---
-
-# Configuración
-
-Crear un archivo `.env` en la carpeta principal del proyecto con la siguiente variable:
-
-```text
-GOOGLE_API_KEY=SU_API_KEY
-```
-
----
-
-# Ejecución
-
-1. Abrir JupyterLab.
-2. Abrir el notebook `Proyecto_Final.ipynb`.
-3. Ejecutar las celdas en el orden en que aparecen.
-4. Esperar a que se creen las bases vectoriales.
-5. Ejecutar la celda de Phoenix.
-6. Ejecutar la interfaz del asistente.
-7. Realizar consultas al sistema.
-
----
-
-# Visualización de Phoenix
-
-Al ejecutar la celda correspondiente, Phoenix iniciará automáticamente.
-
-La interfaz podrá visualizarse desde la dirección mostrada en Jupyter, por ejemplo:
-
-```
-http://127.0.0.1:6006
-```
-
-En Phoenix podrán observarse:
-
-- trazas de ejecución;
-- llamadas al modelo Gemini;
-- herramientas utilizadas;
-- consumo de tokens;
-- tiempos de respuesta;
-- flujo completo del orquestador.
-
----
-
-# Archivos necesarios
-
-El proyecto requiere los siguientes archivos:
-
-```
-01_Catalogo_Productos_Precios.txt
-02_Politicas_Comerciales_Descuentos_Credito.txt
-03_Proceso_Ventas_CRM.txt
-patito_pro.png
-```
-
-Además, durante la ejecución se genera:
-
-```
-registro_oportunidades.txt
-```
 
 # Características principales
 
 - Arquitectura RAG.
-- Agentes especializados.
-- Agente orquestador.
-- Base vectorial con Chroma.
+- Cinco agentes especializados.
+- Agente Orquestador.
+- Bases vectoriales independientes con Chroma.
 - Embeddings de Google Gemini.
-- Agente multimodal para análisis de imágenes.
-- Agente de acción para registrar oportunidades.
+- Agente Multimodal.
+- Agente de Acción.
 - Observabilidad mediante Phoenix.
-- Interfaz interactiva desarrollada con ipywidgets.
+- Interfaz gráfica desarrollada con ipywidgets.
+- Implementación completa en JupyterLab.
 
 ---
 
-# Arquitectura
+# Arquitectura de la solución
 
 El sistema está compuesto por los siguientes componentes:
 
-- Interfaz del asistente.
-- Agente Orquestador.
-- Agente Catálogo y Precios.
-- Agente de Políticas Comerciales.
-- Agente de Proceso de Ventas y CRM.
-- Agente Multimodal.
-- Agente de Acción.
-- Bases vectoriales Chroma.
-- Google Gemini.
-- Phoenix.
+```
+Usuario
+      │
+      ▼
+Interfaz del Asistente (ipywidgets)
+      │
+      ▼
+Agente Orquestador
+      │
+      ├──────────────┐
+      │              │
+      ▼              ▼
+Agente         Agente
+Catálogo       Políticas
+      │
+      ▼
+Agente CRM
+      │
+      ▼
+Agente Multimodal
+      │
+      ▼
+Agente de Acción
+      │
+      ▼
+Google Gemini + Chroma
+      │
+      ▼
+Respuesta al usuario
+      │
+      ▼
+Phoenix (Observabilidad)
+```
+
+---
+
+# Flujo de funcionamiento
+
+1. El usuario realiza una consulta mediante la interfaz.
+2. El Agente Orquestador identifica la intención.
+3. El orquestador selecciona uno o más agentes especializados.
+4. Cada agente consulta su base vectorial mediante un retriever.
+5. Google Gemini genera la respuesta utilizando el contexto recuperado.
+6. Si la consulta requiere registrar una oportunidad, el Agente de Acción valida los datos y almacena la información.
+7. Phoenix registra toda la ejecución del sistema.
+8. La respuesta final es enviada al usuario.
 
 ---
 
@@ -140,71 +85,115 @@ El sistema está compuesto por los siguientes componentes:
 
 - Python 3.11
 - JupyterLab
-- Google Gemini
 - LangChain
 - LangGraph
-- ChromaDB
-- Phoenix
-- ipywidgets
+- Google Gemini
+- GoogleGenerativeAIEmbeddings
+- Chroma
+- Arize Phoenix
+- OpenInference
 - Pillow
 - Pandas
+- ipywidgets
+- python-dotenv
 
 ---
 
 # Dependencias
 
-Instalar las dependencias con:
-
-```bash
-pip install langchain
-pip install langchain-google-genai
-pip install langchain-community
-pip install langchain-chroma
-pip install chromadb
-pip install pillow
-pip install pandas
-pip install ipywidgets
-pip install python-dotenv
-pip install arize-phoenix
-pip install openinference-instrumentation-langchain
-```
-
-O utilizando:
+Instalar todas las dependencias con:
 
 ```bash
 pip install -q langchain langchain-google-genai langchain-community langchain-chroma chromadb pillow pandas ipywidgets python-dotenv
+
 pip install -q arize-phoenix openinference-instrumentation-langchain
 ```
+
+---
+
+# Requisitos
+
+Para ejecutar correctamente el proyecto se requiere:
+
+- Python 3.11 o superior.
+- JupyterLab.
+- API Key de Google Gemini.
+- Conexión a Internet.
+
+---
+
+# Configuración
+
+Crear un archivo `.env` con la siguiente variable:
+
+```text
+GOOGLE_API_KEY=TU_API_KEY
+```
+
+---
+
+# Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone <[URL_DEL_REPOSITORIO](https://github.com/LeoMateo23/SEMILLERO_PROYECTO_MODOAVI-N)>
+```
+
+Ingresar a la carpeta del proyecto:
+
+```bash
+cd proyecto_modo_avión
+```
+
+Instalar las dependencias indicadas anteriormente.
 
 ---
 
 # Estructura del proyecto
 
 ```
-Proyecto/
+proyecto_modo_avión/
 │
 ├── documentos/
 │   ├── 01_Catalogo_Productos_Precios.txt
 │   ├── 02_Politicas_Comerciales_Descuentos_Credito.txt
 │   └── 03_Proceso_Ventas_CRM.txt
 │
-├── registro_oportunidades.txt
 ├── patito_pro.png
+├── registro_oportunidades.txt
 ├── Proyecto_Final.ipynb
-└── README.md
+├── README.md
+└── .env
 ```
 
 ---
 
 # Base de conocimiento
 
-La información utilizada por el asistente proviene de tres documentos independientes:
+La base de conocimiento está formada por tres documentos independientes:
 
-- Catálogo de productos y precios.
-- Políticas comerciales.
-- Proceso de ventas y CRM.
+- Catálogo de Productos y Precios.
+- Políticas Comerciales.
+- Proceso de Ventas y CRM.
 
-Cada documento es dividido en fragmentos (chunks), convertido en embeddings mediante Google Gemini y almacenado en una colección independiente de Chroma.
+Cada documento se divide en fragmentos mediante la función `chunkear_por_secciones()`.
+
+Posteriormente:
+
+- se generan embeddings utilizando Google Gemini;
+- se crea una colección independiente en Chroma;
+- cada colección dispone de su propio retriever.
+
+---
+
+# Parámetros de Ingeniería RAG
+
+- Arquitectura: Retrieval-Augmented Generation (RAG).
+- Embeddings: GoogleGenerativeAIEmbeddings.
+- Vector Store: Chroma.
+- Recuperación: Retriever independiente para cada base de conocimiento.
+- Chunking: División de documentos por secciones mediante `chunkear_por_secciones()`.
 
 ---
 
@@ -212,7 +201,7 @@ Cada documento es dividido en fragmentos (chunks), convertido en embeddings medi
 
 ## Agente Catálogo y Precios
 
-Responde consultas relacionadas con:
+Responde consultas sobre:
 
 - productos;
 - precios;
@@ -235,7 +224,7 @@ Responde consultas relacionadas con:
 
 ## Agente de Proceso de Ventas y CRM
 
-Responde consultas sobre:
+Responde consultas acerca de:
 
 - etapas del embudo;
 - registro de oportunidades;
@@ -246,58 +235,104 @@ Responde consultas sobre:
 
 ## Agente Multimodal
 
-Analiza imágenes de productos mediante Google Gemini Vision para extraer información visible como:
+Analiza imágenes de productos utilizando la capacidad multimodal de Google Gemini.
 
-- nombre del producto;
-- precio;
-- disponibilidad;
-- garantía;
-- características.
+Proceso:
+
+1. Lectura de la imagen.
+2. Conversión a Base64.
+3. Construcción del mensaje multimodal.
+4. Envío de imagen y prompt a Gemini.
+5. Extracción de información visible del producto.
 
 ---
 
 ## Agente de Acción
 
-Permite registrar oportunidades comerciales validando previamente que toda la información requerida esté completa.
+Permite registrar oportunidades comerciales.
 
-Los registros se almacenan en:
+Antes del registro valida que existan todos los datos obligatorios.
 
-```
-registro_oportunidades.txt
-```
+Campos requeridos:
+
+- Cliente.
+- Contacto.
+- Producto.
+- Cantidad.
+- Precio unitario.
+- Descuento.
+- Condición de pago.
+- Monto total.
+
+Una vez validada la información:
+
+- genera un identificador único;
+- registra fecha y hora;
+- almacena la información en `registro_oportunidades.txt`.
 
 ---
 
 ## Agente Orquestador
 
-Coordina el funcionamiento del sistema.
+El Agente Orquestador coordina todo el sistema.
 
-Analiza la intención del usuario y decide qué agente especializado debe intervenir para responder la consulta o ejecutar una acción.
+Analiza la intención del usuario y determina qué agente especializado debe intervenir.
+
+Dependiendo de la consulta puede utilizar:
+
+- Catálogo.
+- Políticas.
+- CRM.
+- Multimodal.
+- Acción.
+
+Finalmente consolida la información y entrega una única respuesta al usuario.
 
 ---
 
-# Observabilidad
+# Control de calidad
 
-El proyecto utiliza **Phoenix** para registrar automáticamente:
+Para mejorar la confiabilidad del sistema se implementaron las siguientes medidas:
+
+- Los agentes responden únicamente utilizando el contexto recuperado mediante RAG.
+- No se inventa información cuando esta no existe en la base de conocimiento.
+- El Agente de Acción valida todos los datos antes de registrar una oportunidad.
+- Las consultas fuera del dominio son identificadas y respondidas apropiadamente.
+
+---
+
+# Observabilidad con Phoenix
+
+El proyecto incorpora Arize Phoenix para registrar automáticamente la ejecución del sistema.
+
+La instrumentación utiliza:
+
+- `px.launch_app()`
+- `register()`
+- `LangChainInstrumentor()`
+
+Phoenix permite visualizar:
 
 - llamadas al modelo Gemini;
-- consultas a los retrievers;
-- herramientas ejecutadas;
+- consultas a Chroma;
+- ejecución de herramientas;
 - tiempos de respuesta;
 - consumo de tokens;
-- trazas completas de ejecución.
+- trazas completas del sistema.
 
 ---
 
-# Flujo de funcionamiento
+# Ejecución del proyecto
 
-1. El usuario realiza una consulta.
-2. El orquestador identifica la intención.
-3. Se selecciona el agente correspondiente.
-4. El retriever recupera el contexto desde Chroma.
-5. Google Gemini genera la respuesta.
-6. Si corresponde, el agente de acción registra la oportunidad.
-7. Phoenix registra toda la ejecución.
+1. Abrir JupyterLab.
+2. Abrir `Proyecto_Final.ipynb`.
+3. Ejecutar las celdas en el orden establecido.
+4. Inicializar Google Gemini.
+5. Inicializar Phoenix.
+6. Construir las bases vectoriales.
+7. Crear los agentes.
+8. Ejecutar la interfaz del asistente.
+9. Realizar consultas.
 
 ---
 
@@ -316,7 +351,6 @@ El proyecto utiliza **Phoenix** para registrar automáticamente:
 ### CRM
 
 - ¿Qué requisitos existen para marcar una oportunidad como ganada?
-- ¿Cuáles son las etapas del embudo de ventas?
 
 ### Multimodal
 
@@ -324,9 +358,17 @@ El proyecto utiliza **Phoenix** para registrar automáticamente:
 
 ### Acción
 
-- Registra una oportunidad para Comercial ABC con 10 unidades del Patito Pro 2026.
+- Registra una oportunidad para Comercial ABC por la compra de 10 unidades del Patito Pro 2026.
 
 ---
+
+# Autores
+
+Proyecto desarrollado por el **Grupo Modo Avión**.
+
+**Universidad de Guayaquil**
+
+**Proyecto Final**
 
 # Autores
 - Ashley Huanca 
