@@ -1,9 +1,0 @@
-ID: OP-0001
-Fecha: 2026-07-25 22:31:27
-Cliente: Comercial ABC
-Producto: Patito Pro 2026
-Cantidad: 10
-Monto estimado: USD 11990.0
-Etapa: Prospecto
-Estado: Abierta
-------------------------------
