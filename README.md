@@ -20,6 +20,20 @@ El sistema utiliza una arquitectura **Retrieval-Augmented Generation (RAG)** con
 Además, incorpora **Arize Phoenix** para la observabilidad y seguimiento de la ejecución de los agentes.
 
 ---
+# 🖼️ Vista previa del sistema
+
+## Interfaz del asistente
+
+![Interfaz del chatbot](Proyecto_Final/imagenes/interfaz.png)
+
+## Observabilidad con Phoenix
+
+![Trazas en Phoenix](Proyecto_Final/imagenes/phoenix.png)
+
+## Análisis multimodal
+
+![Análisis de imagen](Proyecto_Final/imagenes/multimodal.png)
+
 
 # Características principales
 
