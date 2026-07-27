@@ -24,15 +24,15 @@ Además, incorpora **Arize Phoenix** para la observabilidad y seguimiento de la 
 
 ## Interfaz del asistente
 
-![Interfaz del chatbot](Proyecto_Final/imagenes/interfaz.png)
+![Interfaz del chatbot](PROYECTO_FINAL/Imagenes/interfaz.png)
 
 ## Observabilidad con Phoenix
 
-![Trazas en Phoenix](Proyecto_Final/imagenes/phoenix.png)
+![Trazas en Phoenix](PROYECTO_FINAL/Imagenes/phoenix.png)
 
 ## Análisis multimodal
 
-![Análisis de imagen](Proyecto_Final/imagenes/multimodal.png)
+![Análisis de imagen](PROYECTO_FINAL/Imagenes/multimodal.png)
 
 
 # Características principales
