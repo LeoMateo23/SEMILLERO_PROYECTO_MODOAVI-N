@@ -1,107 +1,155 @@
-# Asistente Inteligente para PATITO S.A.
-## Proyecto Final – Grupo Modo Avión
+# 🤖 Asistente Inteligente para PATITO S.A.
+
+## Proyecto Final – Semillero de Inteligencia Artificial
+
+### Grupo: Modo Avión ✈️
+
+**Universidad de Guayaquil**
+
+**Integrantes**
+- Ashley Huanca
+- María Alvarado
+- Leonardo Yugsan
 
 ---
 
-# Descripción
+# 📖 Descripción
 
-El presente proyecto implementa un asistente inteligente basado en la arquitectura **Retrieval-Augmented Generation (RAG)** utilizando **LangChain**, **Google Gemini** y **Chroma**.
+Este proyecto desarrolla una **Mesa de Ayuda Inteligente** para el departamento de Ventas de **PATITO S.A.**, implementada mediante una arquitectura **Retrieval-Augmented Generation (RAG)** y un sistema **multiagente**. La solución integra modelos de lenguaje de Google Gemini, bases vectoriales con Chroma y herramientas de acción para responder consultas, analizar imágenes y registrar oportunidades comerciales.
 
-El sistema permite responder consultas relacionadas con el catálogo de productos, políticas comerciales y proceso de ventas de PATITO S.A., además de analizar imágenes de productos y registrar oportunidades comerciales mediante un agente de acción.
-
-El proyecto incorpora observabilidad utilizando **Arize Phoenix**, lo que permite visualizar el flujo completo de ejecución del sistema.
+El sistema fue desarrollado íntegramente en **JupyterLab**, incorporando una interfaz interactiva construida con `ipywidgets`, un agente orquestador para coordinar agentes especializados y un mecanismo de observabilidad mediante **Arize Phoenix**, que permite monitorear el comportamiento del sistema, las llamadas al modelo, el uso de herramientas y las métricas de ejecución.
 
 ---
 
-# Características principales
+# 🎯 Objetivo
 
-- Arquitectura RAG.
-- Cinco agentes especializados.
-- Agente Orquestador.
-- Bases vectoriales independientes con Chroma.
-- Embeddings de Google Gemini.
-- Agente Multimodal.
-- Agente de Acción.
-- Observabilidad mediante Phoenix.
-- Interfaz gráfica desarrollada con ipywidgets.
-- Implementación completa en JupyterLab.
+Diseñar e implementar una Mesa de Ayuda Inteligente capaz de asistir al departamento de Ventas de PATITO S.A. mediante la recuperación de información empresarial, el análisis multimodal y la automatización de tareas comerciales, empleando una arquitectura RAG con agentes especializados.
 
 ---
 
-# Arquitectura de la solución
+# ✨ Características Principales
 
-El sistema está compuesto por los siguientes componentes:
+- Arquitectura basada en **Retrieval-Augmented Generation (RAG)**.
+- Agente Orquestador para coordinar agentes especializados.
+- Agentes independientes para Catálogo, Políticas Comerciales y CRM.
+- Agente Multimodal para análisis de imágenes.
+- Agente de Acción para registrar oportunidades de venta.
+- Bases vectoriales independientes utilizando Chroma.
+- Embeddings generados con Google Gemini.
+- Interfaz gráfica interactiva desarrollada en JupyterLab con `ipywidgets`.
+- Observabilidad completa mediante Arize Phoenix.
+- Persistencia local del registro de oportunidades comerciales.
+---
+---
 
+# 🏗️ Arquitectura de la Solución
+
+El asistente inteligente está organizado mediante una arquitectura **multiagente**, donde un **Agente Orquestador** analiza cada consulta y delega la tarea al agente especializado correspondiente. Los agentes utilizan bases de conocimiento independientes mediante **RAG** y, cuando es necesario, herramientas de acción para ejecutar operaciones sobre los datos.
+
+```text
+                           Usuario
+                              │
+                              ▼
+                 Interfaz del Asistente
+                     (ipywidgets)
+                              │
+                              ▼
+                  Agente Orquestador
+      ┌─────────────┼─────────────┬─────────────┬─────────────┐
+      ▼             ▼             ▼             ▼             ▼
+  Catálogo      Políticas        CRM      Multimodal      Acción
+      │             │             │             │             │
+      └─────────────┴─────────────┴─────────────┴─────────────┘
+                              │
+                              ▼
+              Google Gemini + Chroma + Tools
+                              │
+                              ▼
+                    Respuesta al Usuario
+                              │
+                              ▼
+                Arize Phoenix (Observabilidad)
 ```
-Usuario
-      │
-      ▼
-Interfaz del Asistente (ipywidgets)
-      │
-      ▼
-Agente Orquestador
-      │
-      ├──────────────┐
-      │              │
-      ▼              ▼
-Agente         Agente
-Catálogo       Políticas
-      │
-      ▼
-Agente CRM
-      │
-      ▼
-Agente Multimodal
-      │
-      ▼
-Agente de Acción
-      │
-      ▼
-Google Gemini + Chroma
-      │
-      ▼
-Respuesta al usuario
-      │
-      ▼
-Phoenix (Observabilidad)
-```
 
 ---
 
-# Flujo de funcionamiento
+# 🧩 Arquitectura de Agentes
 
-1. El usuario realiza una consulta mediante la interfaz.
-2. El Agente Orquestador identifica la intención.
-3. El orquestador selecciona uno o más agentes especializados.
-4. Cada agente consulta su base vectorial mediante un retriever.
+| Componente | Función | Implementación |
+|:----------|:--------|:---------------|
+| **Catálogo** | Consulta productos, precios y características. | RAG + ChromaDB |
+| **Políticas** | Responde consultas sobre descuentos, créditos y garantías. | RAG + ChromaDB |
+| **CRM** | Proporciona información del proceso comercial y ventas. | RAG + ChromaDB |
+| **Multimodal** | Analiza imágenes de productos y documentos. | `gemini-3.1-flash-lite` |
+| **Acción** | Registra oportunidades comerciales y valida información. | `@tool` + Function Calling |
+| **Orquestador** | Analiza la intención y coordina los agentes especializados. | LangGraph + LangChain |
+| **Observabilidad** | Monitorea la ejecución del sistema y las métricas. | Arize Phoenix |
+| **Interfaz** | Permite la interacción del usuario mediante un chatbot. | `ipywidgets` + `threading` |
+
+---
+
+# 🔄 Flujo de Funcionamiento
+
+1. El usuario realiza una consulta desde la interfaz del asistente.
+2. El Agente Orquestador identifica la intención de la solicitud.
+3. La consulta se dirige al agente especializado correspondiente.
+4. El agente recupera información mediante RAG o ejecuta una herramienta de acción, según sea necesario.
 5. Google Gemini genera la respuesta utilizando el contexto recuperado.
-6. Si la consulta requiere registrar una oportunidad, el Agente de Acción valida los datos y almacena la información.
-7. Phoenix registra toda la ejecución del sistema.
-8. La respuesta final es enviada al usuario.
+6. Si la consulta implica una operación de registro, el Agente de Acción valida la información antes de almacenarla.
+7. Arize Phoenix registra la ejecución completa del sistema para su análisis.
+8. La respuesta final se presenta al usuario a través de la interfaz.
 
 ---
 
-# Tecnologías utilizadas
+# 🛠️ Tecnologías Utilizadas
 
-- Python 3.11
-- JupyterLab
-- LangChain
-- LangGraph
-- Google Gemini
-- GoogleGenerativeAIEmbeddings
-- Chroma
-- Arize Phoenix
-- OpenInference
-- Pillow
-- Pandas
-- ipywidgets
-- python-dotenv
+El proyecto fue desarrollado utilizando las siguientes tecnologías y herramientas:
+
+| Categoría | Herramienta |
+|:----------|:------------|
+| Lenguaje | Python 3.11 |
+| Entorno de desarrollo | JupyterLab |
+| Framework para LLM | LangChain |
+| Orquestación de agentes | LangGraph |
+| Modelo de lenguaje | Google Gemini |
+| Embeddings | GoogleGenerativeAIEmbeddings |
+| Base vectorial | ChromaDB |
+| Observabilidad | Arize Phoenix |
+| Instrumentación | OpenInference |
+| Interfaz gráfica | ipywidgets |
+| Procesamiento de imágenes | Pillow |
+| Manipulación de datos | Pandas |
+| Variables de entorno | python-dotenv |
 
 ---
 
-# Dependencias
+# 📋 Requisitos
 
-Instalar todas las dependencias con:
+Para ejecutar correctamente el proyecto se requiere:
+
+- Python 3.11 o superior.
+- JupyterLab instalado.
+- Una API Key válida de Google Gemini.
+- Conexión a Internet.
+- Git (opcional, para clonar el repositorio).
+
+---
+
+# 📦 Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/LeoMateo23/SEMILLERO_PROYECTO_MODOAVION.git
+```
+
+Ingresar al directorio del proyecto:
+
+```bash
+cd SEMILLERO_PROYECTO_MODOAVION
+```
+
+Instalar las dependencias:
 
 ```bash
 pip install -q langchain langchain-google-genai langchain-community langchain-chroma chromadb pillow pandas ipywidgets python-dotenv
@@ -111,49 +159,22 @@ pip install -q arize-phoenix openinference-instrumentation-langchain
 
 ---
 
-# Requisitos
+# ⚙️ Configuración
 
-Para ejecutar correctamente el proyecto se requiere:
-
-- Python 3.11 o superior.
-- JupyterLab.
-- API Key de Google Gemini.
-- Conexión a Internet.
-
----
-
-# Configuración
-
-Crear un archivo `.env` con la siguiente variable:
+Crear un archivo `.env` en la raíz del proyecto con la siguiente variable:
 
 ```text
 GOOGLE_API_KEY=TU_API_KEY
 ```
 
----
-
-# Instalación
-
-Clonar el repositorio:
-
-```bash
-git clone <[URL_DEL_REPOSITORIO](https://github.com/LeoMateo23/SEMILLERO_PROYECTO_MODOAVI-N)>
-```
-
-Ingresar a la carpeta del proyecto:
-
-```bash
-cd proyecto_modo_avión
-```
-
-Instalar las dependencias indicadas anteriormente.
+Una vez configurada la clave, el proyecto podrá autenticarse con los servicios de Google Gemini.
 
 ---
 
-# Estructura del proyecto
+# 📁 Estructura del Proyecto
 
-```
-proyecto_modo_avión/
+```text
+SEMILLERO_PROYECTO_MODOAVION/
 │
 ├── documentos/
 │   ├── 01_Catalogo_Productos_Precios.txt
@@ -164,96 +185,102 @@ proyecto_modo_avión/
 ├── registro_oportunidades.txt
 ├── Proyecto_Final.ipynb
 ├── README.md
-└── .env
+├── .env
+└── requirements.txt (opcional)
 ```
+---
+
+# 📚 Base de Conocimiento
+
+La Mesa de Ayuda IA utiliza una base de conocimiento compuesta por tres documentos independientes, cada uno orientado a un dominio específico del departamento de Ventas de PATITO S.A.
+
+| Documento | Contenido |
+|:----------|:----------|
+| `01_Catalogo_Productos_Precios.txt` | Información sobre productos, precios, disponibilidad y características. |
+| `02_Politicas_Comerciales_Descuentos_Credito.txt` | Políticas de descuentos, créditos, garantías, devoluciones y anticipos. |
+| `03_Proceso_Ventas_CRM.txt` | Procedimientos del proceso comercial y uso del CRM. |
+
+Cada documento se divide en fragmentos mediante la función `chunkear_por_secciones()`, preservando la estructura semántica del contenido.
+
+Posteriormente, cada fragmento es convertido en un *embedding* utilizando Google Gemini y almacenado en una colección independiente de ChromaDB para facilitar la recuperación de información.
 
 ---
 
-# Base de conocimiento
+# 🧠 Arquitectura RAG
 
-La base de conocimiento está formada por tres documentos independientes:
+El sistema implementa una arquitectura **Retrieval-Augmented Generation (RAG)** para responder consultas basadas únicamente en la información disponible en la documentación de la empresa.
 
-- Catálogo de Productos y Precios.
-- Políticas Comerciales.
-- Proceso de Ventas y CRM.
+Características principales:
 
-Cada documento se divide en fragmentos mediante la función `chunkear_por_secciones()`.
-
-Posteriormente:
-
-- se generan embeddings utilizando Google Gemini;
-- se crea una colección independiente en Chroma;
-- cada colección dispone de su propio retriever.
+- Recuperación semántica mediante ChromaDB.
+- Embeddings generados con Google Gemini.
+- Colecciones independientes para cada dominio.
+- Recuperación mediante *retrievers* especializados.
+- Generación de respuestas contextualizadas con Google Gemini.
+- Reducción de alucinaciones utilizando únicamente el contexto recuperado.
 
 ---
 
-# Parámetros de Ingeniería RAG
+# 🤖 Agentes Implementados
 
-- Arquitectura: Retrieval-Augmented Generation (RAG).
-- Embeddings: GoogleGenerativeAIEmbeddings.
-- Vector Store: Chroma.
-- Recuperación: Retriever independiente para cada base de conocimiento.
-- Chunking: División de documentos por secciones mediante `chunkear_por_secciones()`.
+## 📦 Agente de Catálogo
+
+Especializado en consultas relacionadas con:
+
+- Productos.
+- Precios.
+- Disponibilidad.
+- Características técnicas.
+
+Utiliza una base vectorial dedicada para recuperar la información correspondiente antes de generar la respuesta.
 
 ---
 
-# Agentes implementados
-
-## Agente Catálogo y Precios
+## 📋 Agente de Políticas Comerciales
 
 Responde consultas sobre:
 
-- productos;
-- precios;
-- disponibilidad;
-- características técnicas.
+- Descuentos.
+- Créditos.
+- Garantías.
+- Devoluciones.
+- Anticipos.
+
+La información proviene exclusivamente del documento de políticas comerciales.
 
 ---
 
-## Agente de Políticas Comerciales
+## 📈 Agente de Proceso de Ventas y CRM
 
-Responde consultas relacionadas con:
+Asiste al usuario con información relacionada con:
 
-- descuentos;
-- crédito;
-- garantías;
-- devoluciones;
-- anticipos.
-
----
-
-## Agente de Proceso de Ventas y CRM
-
-Responde consultas acerca de:
-
-- etapas del embudo;
-- registro de oportunidades;
-- cierre de ventas;
-- posventa.
+- Etapas del embudo comercial.
+- Registro de oportunidades.
+- Cierre de ventas.
+- Posventa.
+- Buenas prácticas del CRM.
 
 ---
 
-## Agente Multimodal
+## 🖼️ Agente Multimodal
 
-Analiza imágenes de productos utilizando la capacidad multimodal de Google Gemini.
+Este agente aprovecha las capacidades multimodales de Google Gemini para interpretar imágenes.
 
-Proceso:
+Su funcionamiento comprende:
 
 1. Lectura de la imagen.
-2. Conversión a Base64.
+2. Conversión al formato requerido por Gemini.
 3. Construcción del mensaje multimodal.
-4. Envío de imagen y prompt a Gemini.
-5. Extracción de información visible del producto.
+4. Envío de la imagen junto con la consulta.
+5. Generación de una respuesta basada en el contenido visual.
 
 ---
 
-## Agente de Acción
+## 📝 Agente de Acción
 
-Permite registrar oportunidades comerciales.
+Permite registrar oportunidades comerciales mediante herramientas implementadas con `@tool`.
 
-Antes del registro valida que existan todos los datos obligatorios.
-
-Campos requeridos:
+Antes de almacenar la información, verifica que estén presentes todos los campos obligatorios:
 
 - Cliente.
 - Contacto.
@@ -264,48 +291,46 @@ Campos requeridos:
 - Condición de pago.
 - Monto total.
 
-Una vez validada la información:
+Si la validación es satisfactoria, el agente:
 
 - genera un identificador único;
-- registra fecha y hora;
+- registra la fecha y hora;
 - almacena la información en `registro_oportunidades.txt`.
 
 ---
 
-## Agente Orquestador
+## 🎯 Agente Orquestador
 
-El Agente Orquestador coordina todo el sistema.
+El Agente Orquestador constituye el núcleo del sistema.
 
-Analiza la intención del usuario y determina qué agente especializado debe intervenir.
+Sus responsabilidades incluyen:
 
-Dependiendo de la consulta puede utilizar:
-
-- Catálogo.
-- Políticas.
-- CRM.
-- Multimodal.
-- Acción.
-
-Finalmente consolida la información y entrega una única respuesta al usuario.
+- Analizar la intención de la consulta.
+- Seleccionar el agente especializado adecuado.
+- Coordinar la interacción entre agentes cuando una consulta requiere información de múltiples dominios.
+- Consolidar la respuesta antes de entregarla al usuario.
 
 ---
 
-# Control de calidad
+# 💬 Interfaz del Asistente
 
-Para mejorar la confiabilidad del sistema se implementaron las siguientes medidas:
+La interacción con el sistema se realiza mediante una interfaz desarrollada en **JupyterLab** utilizando `ipywidgets`.
 
-- Los agentes responden únicamente utilizando el contexto recuperado mediante RAG.
-- No se inventa información cuando esta no existe en la base de conocimiento.
-- El Agente de Acción valida todos los datos antes de registrar una oportunidad.
-- Las consultas fuera del dominio son identificadas y respondidas apropiadamente.
+La interfaz ofrece:
+
+- Chat interactivo.
+- Entrada de texto para consultas.
+- Área de visualización de respuestas.
+- Procesamiento no bloqueante mediante `threading`.
+- Experiencia de uso similar a un chatbot convencional.
 
 ---
 
-# Observabilidad con Phoenix
+# 📊 Observabilidad con Arize Phoenix
 
-El proyecto incorpora Arize Phoenix para registrar automáticamente la ejecución del sistema.
+El proyecto incorpora **Arize Phoenix** para monitorear y analizar la ejecución del sistema en tiempo real.
 
-La instrumentación utiliza:
+La instrumentación se realiza mediante:
 
 - `px.launch_app()`
 - `register()`
@@ -313,73 +338,97 @@ La instrumentación utiliza:
 
 Phoenix permite visualizar:
 
-- llamadas al modelo Gemini;
-- consultas a Chroma;
-- ejecución de herramientas;
-- tiempos de respuesta;
-- consumo de tokens;
-- trazas completas del sistema.
+- Llamadas realizadas al modelo Google Gemini.
+- Consultas a las bases vectoriales de ChromaDB.
+- Ejecución de herramientas (`@tool`).
+- Tiempos de respuesta.
+- Consumo de tokens.
+- Trazas completas del flujo de ejecución.
+
+Esta información facilita la depuración, el análisis del rendimiento y la validación del comportamiento de los agentes.
 
 ---
 
-# Ejecución del proyecto
+# ✅ Control de Calidad
+
+Para mejorar la confiabilidad del sistema se implementaron las siguientes estrategias:
+
+- Recuperación de información mediante arquitectura RAG.
+- Bases vectoriales independientes para cada dominio.
+- Validación de datos antes de registrar oportunidades comerciales.
+- Respuestas fundamentadas únicamente en el contexto recuperado.
+- Manejo de consultas fuera del dominio mediante respuestas controladas.
+- Observabilidad continua mediante Arize Phoenix.
+
+---
+
+# ▶️ Ejecución del Proyecto
 
 1. Abrir JupyterLab.
-2. Abrir `Proyecto_Final.ipynb`.
+2. Abrir el archivo `Proyecto_Final.ipynb`.
 3. Ejecutar las celdas en el orden establecido.
-4. Inicializar Google Gemini.
-5. Inicializar Phoenix.
+4. Cargar la API Key desde el archivo `.env`.
+5. Inicializar Arize Phoenix.
 6. Construir las bases vectoriales.
-7. Crear los agentes.
-8. Ejecutar la interfaz del asistente.
-9. Realizar consultas.
+7. Crear los agentes especializados.
+8. Inicializar el Agente Orquestador.
+9. Ejecutar la interfaz del asistente.
+10. Realizar consultas.
 
 ---
 
-# Ejemplos de consultas
+# 💡 Ejemplos de Consultas
 
-### Catálogo
+### 📦 Catálogo
 
 - ¿Cuál es el precio del Patito Pro 2026?
 - ¿Qué accesorios están disponibles?
 
-### Políticas
+### 📋 Políticas Comerciales
 
 - ¿Qué descuento puede autorizar un vendedor?
 - ¿Cuál es la política de devoluciones?
 
-### CRM
+### 📈 CRM
 
+- ¿Cuáles son las etapas del proceso de ventas?
 - ¿Qué requisitos existen para marcar una oportunidad como ganada?
 
-### Multimodal
+### 🖼️ Multimodal
 
 - Analiza la imagen `patito_pro.png`.
+- Describe las características visibles del producto.
 
-### Acción
+### 📝 Acción
 
 - Registra una oportunidad para Comercial ABC por la compra de 10 unidades del Patito Pro 2026.
 
 ---
 
-# Autores
+# ⚠️ Limitaciones
 
-Proyecto desarrollado por el **Grupo Modo Avión**.
+- El sistema responde únicamente con base en la documentación proporcionada de PATITO S.A.
+- Requiere conexión a Internet para utilizar los servicios de Google Gemini.
+- La persistencia de oportunidades comerciales se realiza mediante un archivo de texto local.
+- El proyecto está orientado a fines académicos y de demostración.
 
-**Universidad de Guayaquil**
+---
 
-**Proyecto Final**
+# 🚀 Trabajo Futuro
 
-# Autores
-- Ashley Huanca 
-- María Alvarado 
-- Leonardo Yugsan 
+Las siguientes mejoras permitirían ampliar las capacidades del sistema:
 
-Proyecto desarrollado por el grupo **Modo Avión** como parte del Proyecto Final del Semillero de Inteligencia Artificial.
+- Migrar ChromaDB a una base vectorial administrada en la nube.
+- Implementar autenticación y control de acceso basado en roles (RBAC).
+- Sustituir el almacenamiento local por una base de datos relacional.
+- Incorporar caché semántica para consultas frecuentes.
+- Desplegar el sistema como aplicación web utilizando Streamlit o FastAPI.
+- Integrar nuevos agentes especializados para otras áreas de la empresa.
 
-**Grupo:** Modo Avión
+---
 
-**Periodo académico:** 2026 - 2027
+# 📄 Licencia
 
-Universidad de Guayaquil.
+Este proyecto fue desarrollado con fines exclusivamente académicos como parte del Proyecto Final del Semillero de Inteligencia Artificial de la Universidad de Guayaquil.
 
+Su contenido puede utilizarse como material de referencia con la correspondiente atribución a sus autores.
