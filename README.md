@@ -228,6 +228,8 @@ Arize Phoenix permite visualizar:
 - Despliegue como aplicación web.
 
 ---
+# VIDEO DE LA EXPOSOCIÓN DEL PROYECTO
+https://drive.google.com/file/d/1LMQb6RV1A4PfQtQegjUKqlHNJDXNAwU2/view?usp=sharing
 
 **Universidad de Guayaquil**
 
